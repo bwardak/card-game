@@ -4,6 +4,7 @@ public class ScoreKeeping {
 
     private int gamesLost;
     private int gamesWon;
+    // add a high streak if we have time.
 
     public ScoreKeeping(int gamesLost, int gamesWon){
         this.gamesLost = gamesLost;
