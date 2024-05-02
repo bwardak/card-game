@@ -1,5 +1,6 @@
 package org.example.Game;
 
+import org.example.DeckOfCards.CardValuesInt;
 import org.example.DeckOfCards.DeckOfCards;
 import org.example.DeckOfCards.DeckOfCards.*;
 import org.example.DeckOfCards.SortByCardNumber;
@@ -119,8 +120,10 @@ public class Blackjack extends Game{
     }
 
     public void showRoundStats() {
-        cardValue.getCardValue(playersHand.get(0));
-        System.out.println(cardValue.getCardValue(playersHand.get(0)));
+        playerScore = CardValuesInt.matchValue(playersHand.get(0)) + CardValuesInt.matchValue(playersHand.get(1));
+        System.out.println("\nPlayer score: " + playerScore);
+        dealerScore = CardValuesInt.matchValue(dealersHand.get(0));
+        System.out.println("\nDealer score: " + dealerScore);
     }
 
 

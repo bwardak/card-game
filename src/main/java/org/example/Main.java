@@ -22,7 +22,7 @@ public class Main {
         blackjack.dealPlayersHand();
         blackjack.showPlayersHand();
         blackjack.dealDealersHand();
-        blackjack.showDealerHand();
         blackjack.showRoundStats();
+        blackjack.showDealerHand();
     }
 }
