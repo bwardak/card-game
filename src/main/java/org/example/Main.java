@@ -9,8 +9,9 @@ public class Main {
         DeckOfCardsUtils deckk = new DeckOfCardsUtils();
         DeckOfCards deckcards = new DeckOfCards();
 
+
         deckcards.printDeck();
-        deckcards.shuffleDeck();
+        deckcards.sortDeck();
         deckcards.printDeck();
     }
 }
