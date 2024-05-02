@@ -13,5 +13,7 @@ public class Main {
         deckcards.printDeck();
         deckcards.sortDeck();
         deckcards.printDeck();
+        deckcards.resetDeck();
+        deckcards.printDeck();
     }
 }

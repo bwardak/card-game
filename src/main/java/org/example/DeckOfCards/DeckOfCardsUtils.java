@@ -23,6 +23,10 @@ public class DeckOfCardsUtils {
         return cards;
     }
 
+    public static void setCards(ArrayList<String> cards) {
+        DeckOfCardsUtils.cards = cards;
+    }
+
     public static ArrayList<String> getStoredCards() {
         return storedCards;
     }
