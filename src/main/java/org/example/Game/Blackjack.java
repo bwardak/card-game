@@ -4,14 +4,18 @@ import org.example.DeckOfCards.CardValuesInt;
 import org.example.DeckOfCards.DeckOfCards;
 import org.example.DeckOfCards.DeckOfCards.*;
 import org.example.DeckOfCards.SortByCardNumber;
+import org.example.Utility.InputScanner;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Blackjack extends Game{
     private ArrayList<String> playersHand = new ArrayList<>();
     private ArrayList<String> dealersHand = new ArrayList<>();
     private int playerScore;
     private int dealerScore;
+    private int playerIndex = 0;
+    private int dealerIndex = 0;
 
     DeckOfCards cardCommands = new DeckOfCards();
     SortByCardNumber cardValue = new SortByCardNumber();
@@ -40,7 +44,6 @@ public class Blackjack extends Game{
 
     public void dealPlayersHand() {
         cardCommands.shuffleDeck();
-        playersHand.add(cardCommands.dealCard());
         playersHand.add(cardCommands.dealCard());
     }
 
@@ -74,7 +77,6 @@ public class Blackjack extends Game{
     }
 
     public void dealDealersHand() {
-        dealersHand.add(cardCommands.dealCard());
         dealersHand.add(cardCommands.dealCard());
     }
 
@@ -120,12 +122,62 @@ public class Blackjack extends Game{
     }
 
     public void showRoundStats() {
-        playerScore = CardValuesInt.matchValue(playersHand.get(0)) + CardValuesInt.matchValue(playersHand.get(1));
+        for (int i = playerIndex; i < playersHand.size(); i++) {
+            playerScore += CardValuesInt.matchValue(playersHand.get(i));
+            playerIndex++;
+        }
+        for (int i = dealerIndex; i < dealersHand.size() - 1; i++) {
+            dealerScore += CardValuesInt.matchValue(dealersHand.get(i));
+            dealerIndex++;
+        }
         System.out.println("\nPlayer score: " + playerScore);
-        dealerScore = CardValuesInt.matchValue(dealersHand.get(0));
         System.out.println("\nDealer score: " + dealerScore);
+
     }
 
+    public void chooseHitOrStand() {
+        System.out.println("Hit or Stand: ");
+        Scanner scanner = InputScanner.useScanner();
+        String input = scanner.nextLine();
+        if (input.equalsIgnoreCase("hit")) {
+            chooseHit();
+            if (playerScore > 21) {
+                winOrLose();
+            } else {
+                chooseHitOrStand();
+            }
+
+        } else if (input.equalsIgnoreCase("stand")) {
+            while (dealerScore < 17) {
+                chooseStand();
+            }
+        }
+        winOrLose();
+    }
+
+    public void chooseHit() {
+        dealPlayersHand();
+        showPlayersHand();
+        showRoundStats();
+        showDealerHand();
+    }
+
+    public void chooseStand() {
+        showPlayersHand();
+        dealDealersHand();
+        showRoundStats();
+        showDealerHand();
+    }
+
+    public void winOrLose() {
+        if (playerScore > 21) {
+            System.out.println("You lose!");
+        } else if (21 - playerScore < 21 - dealerScore) {
+            System.out.println("You win!");
+        } else {
+            System.out.println("You lose!");
+        }
+    }
 
     @Override
     public void printRules() {
