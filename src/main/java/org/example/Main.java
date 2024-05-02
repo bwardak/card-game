@@ -1,7 +1,16 @@
 package org.example;
 
+import org.example.DeckOfCards.DeckOfCards;
+import org.example.DeckOfCards.DeckOfCardsUtils;
+
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        DeckOfCardsUtils deckk = new DeckOfCardsUtils();
+        DeckOfCards deckcards = new DeckOfCards();
+
+        deckcards.printDeck();
+        deckcards.shuffleDeck();
+        deckcards.printDeck();
     }
 }
