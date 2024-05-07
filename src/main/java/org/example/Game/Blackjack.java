@@ -82,7 +82,7 @@ public class Blackjack extends Game{
 
     public void turnDealerHandIntoCards() {
         for (int i = 0; i < dealersHand.size(); i++) {
-            if (i == dealersHand.size() - 1) {
+            if (i == dealersHand.size() - 1 && dealerScore < 17) {
                 System.out.println(" ---------- \n" +
                         "|          |\n" +
                         "|          |\n" +
@@ -91,6 +91,8 @@ public class Blackjack extends Game{
                         "|          |\n" +
 
                         " ---------- ");
+            } else if (i == dealersHand.size() - 1) {
+                System.out.println(" ");
             } else {
                 if (dealersHand.get(i).startsWith("10")) {
                     System.out.println(" ---------- \n" +
@@ -130,9 +132,18 @@ public class Blackjack extends Game{
             dealerScore += CardValuesInt.matchValue(dealersHand.get(i));
             dealerIndex++;
         }
-        System.out.println("\nPlayer score: " + playerScore);
-        System.out.println("\nDealer score: " + dealerScore);
-
+//        "A♣" || "A♦" || "A♠" || "A♥
+        if ((playersHand.contains("A♣") || playersHand.contains("A♦") || playersHand.contains("A♠") || playersHand.contains("A♥")) && playerScore < 11) {
+            System.out.println("\nPlayer score: " + playerScore + " or " + (playerScore + 10));
+        } else {
+            System.out.println("\nPlayer score: " + playerScore);
+        }
+        if ((dealersHand.contains("A♣") || dealersHand.contains("A♦") || dealersHand.contains("A♠") || dealersHand.contains("A♥")) && dealerScore < 11 &&
+                !dealersHand.get(dealersHand.size() - 1).matches("A[♣♦♠♥]")) {
+            System.out.println("\nDealer score: " + dealerScore + " or " + (dealerScore + 10));
+        } else {
+            System.out.println("\nDealer score: " + dealerScore);
+        }
     }
 
     public void chooseHitOrStand() {
@@ -143,16 +154,26 @@ public class Blackjack extends Game{
             chooseHit();
             if (playerScore > 21) {
                 winOrLose();
+                playAgain();
             } else {
                 chooseHitOrStand();
             }
 
         } else if (input.equalsIgnoreCase("stand")) {
+            if ((playersHand.contains("A♣") || playersHand.contains("A♦") || playersHand.contains("A♠") || playersHand.contains("A♥")) && playerScore < 11) {
+                playerScore += 10;
+            }
             while (dealerScore < 17) {
+                if ((dealersHand.contains("A♣") || dealersHand.contains("A♦") || dealersHand.contains("A♠") || dealersHand.contains("A♥")) && dealerScore == 11) {
+                    dealerScore = 21;
+                } else if((dealersHand.contains("A♣") || dealersHand.contains("A♦") || dealersHand.contains("A♠") || dealersHand.contains("A♥")) && dealerScore < 11) {
+                    dealerScore += 9;
+                }
                 chooseStand();
             }
+            winOrLose();
+            playAgain();
         }
-        winOrLose();
     }
 
     public void chooseHit() {
@@ -170,8 +191,13 @@ public class Blackjack extends Game{
     }
 
     public void winOrLose() {
+
         if (playerScore > 21) {
             System.out.println("You lose!");
+        } else if (playerScore == dealerScore) {
+            System.out.println("Your scores are tied, bets are returned");
+        } else if (dealerScore > 21) {
+            System.out.println("Dealer has bust! You win!");
         } else if (21 - playerScore < 21 - dealerScore) {
             System.out.println("You win!");
         } else {
@@ -191,11 +217,37 @@ public class Blackjack extends Game{
 
     @Override
     public void play() {
-
+        cardCommands.printDeck();
+        dealPlayersHand();
+        dealPlayersHand();
+        showPlayersHand();
+        dealDealersHand();
+        dealDealersHand();
+        showRoundStats();
+        showDealerHand();
+        chooseHitOrStand();
     }
 
     @Override
     public boolean playAgain() {
+        cardCommands.printDeck();
+        playersHand.clear();
+        dealersHand.clear();
+        playerScore = 0;
+        dealerScore = 0;
+        playerIndex = 0;
+        dealerIndex = 0;
+        cardCommands.resetDeck();
+        cardCommands.shuffleDeck();
+        cardCommands.printDeck();
+        System.out.println("Play again? (y/n)");
+        Scanner scanner = InputScanner.useScanner();
+        String yOrN = scanner.nextLine();
+        if (yOrN.equalsIgnoreCase("y")) {
+            play();
+        } else if (yOrN.equalsIgnoreCase("n")){
+            System.out.println("Thanks for playing ^_^");
+        }
         return false;
     }
 }

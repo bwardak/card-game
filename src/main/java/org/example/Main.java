@@ -17,16 +17,6 @@ public class Main {
 
 
 
-        deckcards.printDeck();
-//        blackjack.printRules();
-        blackjack.dealPlayersHand();
-        blackjack.dealPlayersHand();
-        blackjack.showPlayersHand();
-        blackjack.dealDealersHand();
-        blackjack.dealDealersHand();
-        blackjack.showRoundStats();
-        blackjack.showDealerHand();
-        deckcards.printDeck();
-        blackjack.chooseHitOrStand();
+        blackjack.play();
     }
 }

@@ -21,14 +21,15 @@ public class DeckOfCards {
         Collections.sort(deck.getCards(), new SortByCardNumber());
     }
 
-    public ArrayList<String> shuffleDeck() {
+    public void shuffleDeck() {
         Collections.shuffle(cards);
-        return getCards();
     }
 
-    public ArrayList<String> resetDeck(){
-        cards = deck.getStoredCards();
-        return cards;
+    public void resetDeck(){
+        ArrayList<String> originalStoredCards = new ArrayList<>(DeckOfCardsUtils.getStoredCards());
+        System.out.println(cards + "test " + cards.size());
+        cards = originalStoredCards;
+        System.out.println(cards + "test " + cards.size());
     }
 
     public void printDeck(){
