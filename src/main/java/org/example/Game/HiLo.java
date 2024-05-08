@@ -10,7 +10,7 @@ import java.net.Socket;
 public class HiLo extends Game {
     private DeckOfCards deck;
     private InputScanner userInput;
-    private ScoreKeeping gamesPlayed;
+    private int gamesPlayed;
 
     public HiLo(String title, String rules) {
         super(title, rules);
@@ -28,7 +28,7 @@ public class HiLo extends Game {
             System.out.println("Shuffling Deck...");
             deck.shuffleDeck();
             deck.shuffleDeck();
-            int gamesPlayed = 0;
+            gamesPlayed = 0;
             System.out.println("Win streak: " + gamesPlayed);
             boolean gameContinue;
             do {
@@ -127,7 +127,7 @@ public class HiLo extends Game {
 
     @Override
     public boolean playAgain() {
-        System.out.println("Play again? y/n");
+        System.out.println("Play again? (y/n)");
         String input = userInput.useScanner().nextLine().toUpperCase();
         if(input.equals("Y")){
             play();
