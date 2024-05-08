@@ -79,25 +79,31 @@ public class HiLo extends Game {
                 if (userGuess.contains("H")) {
                     if (nextCardValue == currentCardValue) {
                         System.out.println("You lose, they were the same. Too bad");
+                        System.out.println();
                     } else if (nextCardValue > currentCardValue) {
                         System.out.println("Well done! The card was: " + nextCardString);
                         gameContinue = true;
                         gamesPlayed++;
                         System.out.println("Win Streak: " + gamesPlayed);
+                        System.out.println();
                     } else if (nextCardValue < currentCardValue) {
                         System.out.println("You lose, the next card was " + nextCardString + ". Try harder.");
+                        System.out.println();
                     }
                 }
                 if (userGuess.contains("L")) {
                     if (nextCardValue == currentCardValue) {
                         System.out.println("You lose, they were the same. Too bad");
+                        System.out.println();
                     } else if (nextCardValue < currentCardValue) {
                         System.out.println("Well done! The card was: " + nextCardString);
                         gameContinue = true;
                         gamesPlayed++;
                         System.out.println("Win Streak: " + gamesPlayed);
+                        System.out.println();
                     } else if (nextCardValue > currentCardValue) {
                         System.out.println("You Lose, the next card was " + nextCardString + ". Try again");
+                        System.out.println();
                     }
                 }
                 if (userGuess.contains("S")) {
@@ -106,10 +112,13 @@ public class HiLo extends Game {
                         gameContinue = true;
                         gamesPlayed++;
                         System.out.println("Win Streak: " + gamesPlayed);
+                        System.out.println();
                     } else if (nextCardValue > currentCardValue) {
                         System.out.println("You lose, the next card was " + nextCardString);
+                        System.out.println();
                     } else if (nextCardValue < currentCardValue) {
                         System.out.println("You lose, the next card was " + nextCardString);
+                        System.out.println();
                     }
                 }
             } while (gameContinue);
