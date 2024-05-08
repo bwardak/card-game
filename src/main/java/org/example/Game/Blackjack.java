@@ -56,7 +56,6 @@ public class Blackjack extends Game{
                 placeBet();
             } else {
                 currentBet = Integer.parseInt(input);
-                System.out.println(currentBet);
                 if (playerMoney >= currentBet) {
                     playerMoney = playerMoney - currentBet;
                 } else {
@@ -116,7 +115,20 @@ public class Blackjack extends Game{
         Arrays.fill(lines, "");
 
         for (int i = 0; i < dealersHand.size(); i++) {
-            if (i == dealersHand.size() - 1 && dealerScore < 17) {
+            if (playerScore > 21) {
+                String card = dealersHand.get(i);
+                lines[0] += " ----------   ";
+                lines[1] += "|          |  ";
+                lines[2] += "|          |  ";
+                if (card.startsWith("10")) {
+                    lines[3] += "|    " + card + "   |  ";
+                } else {
+                    lines[3] += "|    " + card + "    |  ";
+                }
+                lines[4] += "|          |  ";
+                lines[5] += "|          |  ";
+                lines[6] += " ----------   ";
+            } else if (i == dealersHand.size() - 1 && dealerScore < 17) {
                 lines[0] += " ----------   ";
                 lines[1] += "|          |  ";
                 lines[2] += "|          |  ";
@@ -156,6 +168,9 @@ public class Blackjack extends Game{
         for (int i = playerIndex; i < playersHand.size(); i++) {
             playerScore += CardValuesInt.matchValue(playersHand.get(i));
             playerIndex++;
+            if (playerScore > 21) {
+                dealerScore += CardValuesInt.matchValue(dealersHand.get(dealersHand.size()-1));
+            }
         }
         for (int i = dealerIndex; i < dealersHand.size() - 1; i++) {
             dealerScore += CardValuesInt.matchValue(dealersHand.get(i));
@@ -228,15 +243,15 @@ public class Blackjack extends Game{
     public void winOrLose() {
 
         if (playerScore > 21) {
-            System.out.println("\nYou lose!");
+            System.out.println("\nOver 21! You lose!");
         } else if (playerScore == dealerScore) {
             System.out.println("\nYour scores are tied, bets are returned");
             playerMoney += currentBet;
         } else if (dealerScore > 21) {
-            System.out.println("\nDealer has bust! You win!");
+            System.out.println("\nDealer went bust! You win $" + currentBet * 2 + "!");
             playerMoney += currentBet * 2;
         } else if (21 - playerScore < 21 - dealerScore) {
-            System.out.println("\nYou win " + currentBet * 2 + "!");
+            System.out.println("\nYou win $" + currentBet * 2 + "!");
             playerMoney += currentBet * 2;
         } else {
             System.out.println("\nYou lose!");
