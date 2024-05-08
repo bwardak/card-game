@@ -7,6 +7,7 @@ import org.example.DeckOfCards.SortByCardNumber;
 import org.example.Utility.InputScanner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Blackjack extends Game{
@@ -16,6 +17,8 @@ public class Blackjack extends Game{
     private int dealerScore;
     private int playerIndex = 0;
     private int dealerIndex = 0;
+    private int playerMoney = 1000;
+    private int currentBet = 0;
 
     DeckOfCards cardCommands = new DeckOfCards();
     SortByCardNumber cardValue = new SortByCardNumber();
@@ -42,32 +45,48 @@ public class Blackjack extends Game{
                 "    They will hit while below 17, or stand if on 17 and above.";
     }
 
+    public void placeBet() {
+        while (playerMoney > 0) {
+            System.out.print("Enter a bet: ");
+            Scanner scanner = InputScanner.useScanner();
+            String input = scanner.nextLine();
+            currentBet = Integer.parseInt(input);
+            if (playerMoney > currentBet) {
+                playerMoney = playerMoney - currentBet;
+            } else {
+                System.out.println("You do not have this much money. Please bet again.");
+                placeBet();
+            }
+        }
+        System.out.println("You ran out of money! GAME OVER!");
+    }
+
     public void dealPlayersHand() {
         cardCommands.shuffleDeck();
         playersHand.add(cardCommands.dealCard());
     }
 
     public void turnPlayerHandIntoCards() {
+        String[] lines = new String[7];
+
+        Arrays.fill(lines, "");
+
         for (String card : playersHand) {
+            lines[0] += " ----------   ";
+            lines[1] += "|          |  ";
+            lines[2] += "|          |  ";
             if (card.startsWith("10")) {
-                System.out.println(" ---------- \n" +
-                        "|          |\n" +
-                        "|          |\n" +
-                        "|    " + card + "   |\n" +
-                        "|          |\n" +
-                        "|          |\n" +
-
-                        " ---------- ");
+                lines[3] += "|    " + card + "   |  ";
             } else {
-                System.out.println(" ---------- \n" +
-                        "|          |\n" +
-                        "|          |\n" +
-                        "|    " + card + "    |\n" +
-                        "|          |\n" +
-                        "|          |\n" +
-
-                        " ---------- ");
+                lines[3] += "|    " + card + "    |  ";
             }
+            lines[4] += "|          |  ";
+            lines[5] += "|          |  ";
+            lines[6] += " ----------   ";
+        }
+
+        for (String line : lines) {
+            System.out.println(line);
         }
     }
 
@@ -81,40 +100,39 @@ public class Blackjack extends Game{
     }
 
     public void turnDealerHandIntoCards() {
+        String[] lines = new String[7];
+
+        Arrays.fill(lines, "");
+
         for (int i = 0; i < dealersHand.size(); i++) {
             if (i == dealersHand.size() - 1 && dealerScore < 17) {
-                System.out.println(" ---------- \n" +
-                        "|          |\n" +
-                        "|          |\n" +
-                        "|    "+ "? " + "    |\n" +
-                        "|          |\n" +
-                        "|          |\n" +
-
-                        " ---------- ");
+                lines[0] += " ----------   ";
+                lines[1] += "|          |  ";
+                lines[2] += "|          |  ";
+                lines[3] += "|    ?     |  ";
+                lines[4] += "|          |  ";
+                lines[5] += "|          |  ";
+                lines[6] += " ----------   ";
             } else if (i == dealersHand.size() - 1) {
                 System.out.println(" ");
             } else {
-                if (dealersHand.get(i).startsWith("10")) {
-                    System.out.println(" ---------- \n" +
-                            "|          |\n" +
-                            "|          |\n" +
-                            "|    "+ dealersHand.get(i) + "   |\n" +
-                            "|          |\n" +
-                            "|          |\n" +
-
-                            " ---------- ");
+                String card = dealersHand.get(i);
+                lines[0] += " ----------   ";
+                lines[1] += "|          |  ";
+                lines[2] += "|          |  ";
+                if (card.startsWith("10")) {
+                    lines[3] += "|    " + card + "   |  ";
                 } else {
-                    System.out.println(" ---------- \n" +
-                            "|          |\n" +
-                            "|          |\n" +
-                            "|    "+ dealersHand.get(i) + "    |\n" +
-                            "|          |\n" +
-                            "|          |\n" +
-
-                            " ---------- ");
+                    lines[3] += "|    " + card + "    |  ";
                 }
+                lines[4] += "|          |  ";
+                lines[5] += "|          |  ";
+                lines[6] += " ----------   ";
             }
+        }
 
+        for (String line : lines) {
+            System.out.println(line);
         }
     }
 
@@ -132,7 +150,6 @@ public class Blackjack extends Game{
             dealerScore += CardValuesInt.matchValue(dealersHand.get(i));
             dealerIndex++;
         }
-//        "A♣" || "A♦" || "A♠" || "A♥
         if ((playersHand.contains("A♣") || playersHand.contains("A♦") || playersHand.contains("A♠") || playersHand.contains("A♥")) && playerScore < 11) {
             System.out.println("\nPlayer score: " + playerScore + " or " + (playerScore + 10));
         } else {
