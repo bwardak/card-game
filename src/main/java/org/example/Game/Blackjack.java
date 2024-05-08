@@ -51,14 +51,20 @@ public class Blackjack extends Game{
             System.out.print("Enter a bet: ");
             Scanner scanner = InputScanner.useScanner();
             String input = scanner.nextLine();
-            currentBet = Integer.parseInt(input);
-            System.out.println(currentBet);
-            if (playerMoney >= currentBet) {
-                playerMoney = playerMoney - currentBet;
-            } else {
-                System.out.println("You do not have this much money. Please bet again.");
+            if (!input.matches(".*[0-9].*")) {
+                System.out.println("You must enter a number!");
                 placeBet();
+            } else {
+                currentBet = Integer.parseInt(input);
+                System.out.println(currentBet);
+                if (playerMoney >= currentBet) {
+                    playerMoney = playerMoney - currentBet;
+                } else {
+                    System.out.println("You do not have this much money. Please bet again.");
+                    placeBet();
+                }
             }
+
         }
     }
 
@@ -202,35 +208,43 @@ public class Blackjack extends Game{
     }
 
     public void chooseHit() {
+        dashedLine();
         dealPlayersHand();
         showPlayersHand();
         showRoundStats();
         showDealerHand();
+        dashedLine();
     }
 
     public void chooseStand() {
+        dashedLine();
         showPlayersHand();
         dealDealersHand();
         showRoundStats();
         showDealerHand();
+        dashedLine();
     }
 
     public void winOrLose() {
 
         if (playerScore > 21) {
-            System.out.println("You lose!");
+            System.out.println("\nYou lose!");
         } else if (playerScore == dealerScore) {
-            System.out.println("Your scores are tied, bets are returned");
+            System.out.println("\nYour scores are tied, bets are returned");
             playerMoney += currentBet;
         } else if (dealerScore > 21) {
-            System.out.println("Dealer has bust! You win!");
+            System.out.println("\nDealer has bust! You win!");
             playerMoney += currentBet * 2;
         } else if (21 - playerScore < 21 - dealerScore) {
-            System.out.println("You win " + currentBet * 2 + "!");
+            System.out.println("\nYou win " + currentBet * 2 + "!");
             playerMoney += currentBet * 2;
         } else {
-            System.out.println("You lose!");
+            System.out.println("\nYou lose!");
         }
+    }
+
+    public void dashedLine() {
+        System.out.println("\n------------------------------------------------------------------------------------------------------------");
     }
 
     @Override
@@ -247,6 +261,7 @@ public class Blackjack extends Game{
     public void play() {
         if (playerMoney > 0) {
             placeBet();
+            dashedLine();
             displayPlayerMoney();
             dealPlayersHand();
             dealPlayersHand();
@@ -255,6 +270,7 @@ public class Blackjack extends Game{
             dealDealersHand();
             showRoundStats();
             showDealerHand();
+            dashedLine();
             chooseHitOrStand();
         } else {
             System.out.println(" ");
@@ -278,6 +294,7 @@ public class Blackjack extends Game{
             System.out.println("Play again? (y/n)");
             Scanner scanner = InputScanner.useScanner();
             String yOrN = scanner.nextLine();
+            dashedLine();
             if (yOrN.equalsIgnoreCase("y")) {
                 play();
             } else if (yOrN.equalsIgnoreCase("n")){
@@ -286,6 +303,7 @@ public class Blackjack extends Game{
             }
         } else {
             System.out.println("OUT OF MONEY! GAME OVER!");
+            dashedLine();
         }
 
         return true;
