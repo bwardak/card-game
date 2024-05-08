@@ -3,12 +3,14 @@ package org.example.Game;
 import org.example.DeckOfCards.DeckOfCards;
 import org.example.DeckOfCards.DeckOfCardsUtils;
 import org.example.Utility.InputScanner;
+import org.example.Utility.ScoreKeeping;
 
 import java.net.Socket;
 
 public class HiLo extends Game {
     private DeckOfCards deck;
     private InputScanner userInput;
+    private ScoreKeeping gamesPlayed;
 
     public HiLo(String title, String rules) {
         super(title, rules);
@@ -18,6 +20,7 @@ public class HiLo extends Game {
 
         @Override
         public void play() {
+
             System.out.println("Welcome to Higher or Lower");
             System.out.println("Have Fun!!");
             System.out.println();
@@ -25,6 +28,8 @@ public class HiLo extends Game {
             System.out.println("Shuffling Deck...");
             deck.shuffleDeck();
             deck.shuffleDeck();
+            int gamesPlayed = 0;
+            System.out.println("Win streak: " + gamesPlayed);
             boolean gameContinue;
             do {
                 String currentCardString = deck.dealCard();
@@ -77,6 +82,8 @@ public class HiLo extends Game {
                     } else if (nextCardValue > currentCardValue) {
                         System.out.println("Well done!");
                         gameContinue = true;
+                        gamesPlayed++;
+                        System.out.println("Win Streak: " + gamesPlayed);
                     } else if (nextCardValue < currentCardValue) {
                         System.out.println("You lose, the next card was " + nextCardString + ". Try harder.");
                     }
@@ -87,6 +94,8 @@ public class HiLo extends Game {
                     } else if (nextCardValue < currentCardValue) {
                         System.out.println("Well done!");
                         gameContinue = true;
+                        gamesPlayed++;
+                        System.out.println("Win Streak: " + gamesPlayed);
                     } else if (nextCardValue > currentCardValue) {
                         System.out.println("You Lose, the next card was " + nextCardString + ". Try again");
                     }
@@ -95,6 +104,8 @@ public class HiLo extends Game {
                     if (nextCardValue == currentCardValue) {
                         System.out.println("Well done! They are the same value.");
                         gameContinue = true;
+                        gamesPlayed++;
+                        System.out.println("Win Streak: " + gamesPlayed);
                     } else if (nextCardValue > currentCardValue) {
                         System.out.println("You lose, the next card was " + nextCardString);
                     } else if (nextCardValue < currentCardValue) {
@@ -117,9 +128,11 @@ public class HiLo extends Game {
         return true;
     }
 
+    public static void main(String[] args){
+        HiLo game = new HiLo("fnuj", "hjfh");
 
-
-
+        game.play();
+    }
 };
 
 
