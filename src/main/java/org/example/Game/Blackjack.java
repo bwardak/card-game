@@ -195,6 +195,9 @@ public class Blackjack extends Game{
             }
             winOrLose();
             playAgain();
+        } else {
+            System.out.println("Invalid input.");
+            chooseHitOrStand();
         }
     }
 
@@ -243,10 +246,6 @@ public class Blackjack extends Game{
     @Override
     public void play() {
         if (playerMoney > 0) {
-            if (showRules) {
-                printRules();
-                showRules = false;
-            }
             placeBet();
             displayPlayerMoney();
             dealPlayersHand();
@@ -283,11 +282,12 @@ public class Blackjack extends Game{
                 play();
             } else if (yOrN.equalsIgnoreCase("n")){
                 System.out.println("Thanks for playing ^_^");
+                return false;
             }
         } else {
             System.out.println("OUT OF MONEY! GAME OVER!");
         }
 
-        return false;
+        return true;
     }
 }

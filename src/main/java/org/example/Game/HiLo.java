@@ -19,7 +19,6 @@ public class HiLo extends Game {
         @Override
         public void play() {
             System.out.println("Welcome to Higher or Lower");
-            printRules();
             System.out.println("Have Fun!!");
             System.out.println();
 
@@ -115,16 +114,11 @@ public class HiLo extends Game {
         } else if (input.equals("N")){
             System.out.println("Thanks for playing");
         }
-        return false;
+        return true;
     }
 
 
-    public void printRules(){
-            System.out.println("1. You have to guess if the next card pulled will be higher, lower or the same card value than the current card. \n"
-                    + "2. Ace is the lowest card \n"
-                    + "3. Type 'H' for higher, 'L' for lower and 'S' for same \n"
-                    + "4. Game ends when you guess incorrectly");
-        }
+
 
 };
 
