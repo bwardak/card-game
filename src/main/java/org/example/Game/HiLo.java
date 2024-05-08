@@ -80,7 +80,7 @@ public class HiLo extends Game {
                     if (nextCardValue == currentCardValue) {
                         System.out.println("You lose, they were the same. Too bad");
                     } else if (nextCardValue > currentCardValue) {
-                        System.out.println("Well done!");
+                        System.out.println("Well done! The card was: " + nextCardString);
                         gameContinue = true;
                         gamesPlayed++;
                         System.out.println("Win Streak: " + gamesPlayed);
@@ -92,7 +92,7 @@ public class HiLo extends Game {
                     if (nextCardValue == currentCardValue) {
                         System.out.println("You lose, they were the same. Too bad");
                     } else if (nextCardValue < currentCardValue) {
-                        System.out.println("Well done!");
+                        System.out.println("Well done! The card was: " + nextCardString);
                         gameContinue = true;
                         gamesPlayed++;
                         System.out.println("Win Streak: " + gamesPlayed);
