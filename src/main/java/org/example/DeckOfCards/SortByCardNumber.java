@@ -10,7 +10,7 @@ public class SortByCardNumber implements Comparator<String> {
         return c1.ordinal() - c2.ordinal();
     }
 
-    private CardValues getCardValue(String valueOfCard) {
+    public CardValues getCardValue(String valueOfCard) {
         String cardRank = valueOfCard.substring(0, valueOfCard.length() - 1);
         return CardValues.fromValue(cardRank);
     }

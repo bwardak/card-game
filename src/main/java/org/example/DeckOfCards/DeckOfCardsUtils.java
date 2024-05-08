@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class DeckOfCardsUtils {
 
     public static ArrayList<String> cards = new ArrayList<>();
-    public static ArrayList<String> storedCards = new ArrayList<>();
+    public final static ArrayList<String> storedCards = new ArrayList<>();
 
     static {
         String[] suits = {"♣", "♦", "♠", "♥"};
