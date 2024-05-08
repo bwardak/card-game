@@ -2,7 +2,6 @@ package org.example.Game;
 
 import org.example.DeckOfCards.CardValuesInt;
 import org.example.DeckOfCards.DeckOfCards;
-import org.example.DeckOfCards.DeckOfCards.*;
 import org.example.DeckOfCards.SortByCardNumber;
 import org.example.Utility.InputScanner;
 
@@ -19,6 +18,7 @@ public class Blackjack extends Game{
     private int dealerIndex = 0;
     private int playerMoney = 1000;
     private int currentBet = 0;
+    private boolean showRules = true;
 
     DeckOfCards cardCommands = new DeckOfCards();
     SortByCardNumber cardValue = new SortByCardNumber();
@@ -46,19 +46,24 @@ public class Blackjack extends Game{
     }
 
     public void placeBet() {
-        while (playerMoney > 0) {
+        if (playerMoney > 0) {
+            displayPlayerMoney();
             System.out.print("Enter a bet: ");
             Scanner scanner = InputScanner.useScanner();
             String input = scanner.nextLine();
             currentBet = Integer.parseInt(input);
-            if (playerMoney > currentBet) {
+            System.out.println(currentBet);
+            if (playerMoney >= currentBet) {
                 playerMoney = playerMoney - currentBet;
             } else {
                 System.out.println("You do not have this much money. Please bet again.");
                 placeBet();
             }
         }
-        System.out.println("You ran out of money! GAME OVER!");
+    }
+
+    public void displayPlayerMoney() {
+        System.out.println("\nYour money: $" + playerMoney);
     }
 
     public void dealPlayersHand() {
@@ -213,10 +218,13 @@ public class Blackjack extends Game{
             System.out.println("You lose!");
         } else if (playerScore == dealerScore) {
             System.out.println("Your scores are tied, bets are returned");
+            playerMoney += currentBet;
         } else if (dealerScore > 21) {
             System.out.println("Dealer has bust! You win!");
+            playerMoney += currentBet * 2;
         } else if (21 - playerScore < 21 - dealerScore) {
-            System.out.println("You win!");
+            System.out.println("You win " + currentBet * 2 + "!");
+            playerMoney += currentBet * 2;
         } else {
             System.out.println("You lose!");
         }
@@ -234,37 +242,52 @@ public class Blackjack extends Game{
 
     @Override
     public void play() {
-        cardCommands.printDeck();
-        dealPlayersHand();
-        dealPlayersHand();
-        showPlayersHand();
-        dealDealersHand();
-        dealDealersHand();
-        showRoundStats();
-        showDealerHand();
-        chooseHitOrStand();
+        if (playerMoney > 0) {
+            if (showRules) {
+                printRules();
+                showRules = false;
+            }
+            placeBet();
+            displayPlayerMoney();
+            dealPlayersHand();
+            dealPlayersHand();
+            showPlayersHand();
+            dealDealersHand();
+            dealDealersHand();
+            showRoundStats();
+            showDealerHand();
+            chooseHitOrStand();
+        } else {
+            System.out.println(" ");
+        }
+
+
     }
 
     @Override
     public boolean playAgain() {
-        cardCommands.printDeck();
         playersHand.clear();
         dealersHand.clear();
         playerScore = 0;
         dealerScore = 0;
         playerIndex = 0;
         dealerIndex = 0;
+        currentBet = 0;
         cardCommands.resetDeck();
         cardCommands.shuffleDeck();
-        cardCommands.printDeck();
-        System.out.println("Play again? (y/n)");
-        Scanner scanner = InputScanner.useScanner();
-        String yOrN = scanner.nextLine();
-        if (yOrN.equalsIgnoreCase("y")) {
-            play();
-        } else if (yOrN.equalsIgnoreCase("n")){
-            System.out.println("Thanks for playing ^_^");
+        if (playerMoney > 0) {
+            System.out.println("Play again? (y/n)");
+            Scanner scanner = InputScanner.useScanner();
+            String yOrN = scanner.nextLine();
+            if (yOrN.equalsIgnoreCase("y")) {
+                play();
+            } else if (yOrN.equalsIgnoreCase("n")){
+                System.out.println("Thanks for playing ^_^");
+            }
+        } else {
+            System.out.println("OUT OF MONEY! GAME OVER!");
         }
+
         return false;
     }
 }

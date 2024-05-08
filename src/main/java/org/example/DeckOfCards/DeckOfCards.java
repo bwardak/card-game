@@ -27,9 +27,7 @@ public class DeckOfCards {
 
     public void resetDeck(){
         ArrayList<String> originalStoredCards = new ArrayList<>(DeckOfCardsUtils.getStoredCards());
-        System.out.println(cards + "test " + cards.size());
         cards = originalStoredCards;
-        System.out.println(cards + "test " + cards.size());
     }
 
     public void printDeck(){
