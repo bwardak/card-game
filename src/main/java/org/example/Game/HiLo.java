@@ -83,7 +83,7 @@ public class HiLo extends Game {
                         System.out.println();
                     }
                 }
-                if(!userGuess.equalsIgnoreCase("H")|| !userGuess.equalsIgnoreCase("S") || !userGuess.equalsIgnoreCase("L")){
+                if(!userGuess.equalsIgnoreCase("H") && !userGuess.equalsIgnoreCase("S") && !userGuess.equalsIgnoreCase("L")){
                     System.out.println("Invalid Input");
                     gameContinue = true;
                 }
