@@ -137,11 +137,6 @@ public class HiLo extends Game {
         return true;
     }
 
-    public static void main(String[] args){
-        HiLo game = new HiLo("fnuj", "hjfh");
-
-        game.play();
-    }
 };
 
 
