@@ -1,11 +1,7 @@
 package org.example.Game;
 
 import org.example.DeckOfCards.DeckOfCards;
-import org.example.DeckOfCards.DeckOfCardsUtils;
 import org.example.Utility.InputScanner;
-import org.example.Utility.ScoreKeeping;
-
-import java.net.Socket;
 
 public class HiLo extends Game {
     private DeckOfCards deck;
