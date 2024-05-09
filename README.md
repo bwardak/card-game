@@ -11,9 +11,16 @@
 </ul>
 
 <h2>BlackJack - Baheer</h2>
-<!--Intro-->
-<!--Features -->
+<h3>Intro</h3>
+Blackjack is a game where the player goes against the dealer and draws cards, with whoever ending closer to 21 being the winner. Be careful though, if you go above 21, you lose!
 
+<h3>Features</h3>
+<ul>
+  <li>Rules are printed out when the game is selected, make sure to read it!!!</li>
+  <li>Deals the player and the dealer a hand, with the dealers 2nd card being hidden.</li>
+  <li>Hit or Stand: Hit if you want to draw another card, stand if you want to keep your current score.</li>
+  <li>You start of with $1000, and you can place bets of any amount. Should you win, you double your bet. Should you lose, game over.</li>
+</ul>
 
 <br>
 <h2>Higher-Lower - Michaela</h2>
