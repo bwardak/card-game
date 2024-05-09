@@ -3,15 +3,15 @@ package org.example.Utility;
 public abstract class UserInteraction {
 
     public void errorHandling(){
-        System.out.println("Invalid Input.");
+        System.out.println("\nINVALID INPUT\n");
     }
 
     public void chooseGamePrompt(){
-        System.out.println("Choose a Game");
+        System.out.println("Choose a Game:");
     }
 
     public void chooseActionPrompt(){
-        System.out.println("Pick an action");
+        System.out.print("Enter number: ");
     }
 
 

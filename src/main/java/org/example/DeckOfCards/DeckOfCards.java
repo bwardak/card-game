@@ -1,36 +1,21 @@
 package org.example.DeckOfCards;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
-import static org.example.DeckOfCards.DeckOfCardsUtils.cards;
 import static org.example.DeckOfCards.DeckOfCardsUtils.getCards;
 
-public class DeckOfCards {
-    DeckOfCardsUtils deck = new DeckOfCardsUtils();
+public class DeckOfCards extends AbstractDeckOfCards{
     private static final Random RANDOM = new Random();
     private String randomCard;
 
     public String dealCard() {
-        String dealtCard = deck.getCards().remove(0);
-        return dealtCard;
+        if (!getCards().isEmpty()){
+            return getCards().remove(0);
+        }
+        throw new IllegalStateException("No cards left!");
     }
 
     public void sortDeck() {
-        Collections.sort(deck.getCards(), new SortByCardNumber());
-    }
-
-    public void shuffleDeck() {
-        Collections.shuffle(cards);
-    }
-
-    public void resetDeck(){
-        ArrayList<String> originalStoredCards = new ArrayList<>(DeckOfCardsUtils.getStoredCards());
-        cards = originalStoredCards;
-    }
-
-    public void printDeck(){
-        System.out.println(getCards());
+        getCards().sort(new SortByCardNumber());
     }
 }

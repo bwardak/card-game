@@ -21,7 +21,7 @@ public class Blackjack extends Game{
     private boolean showRules = true;
 
     DeckOfCards cardCommands = new DeckOfCards();
-    SortByCardNumber cardValue = new SortByCardNumber();
+
 
     public Blackjack() {
         super("Blackjack", blackjackRules());

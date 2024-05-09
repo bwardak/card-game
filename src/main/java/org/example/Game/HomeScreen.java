@@ -1,9 +1,11 @@
 package org.example.Game;
 
 import org.example.Utility.InputScanner;
+import org.example.Utility.UserInteraction;
 
-public class HomeScreen implements ChooseGame{
-    private InputScanner userInput;
+
+public class HomeScreen extends UserInteraction implements ChooseGame{
+
 
     HiLo hilo = new HiLo("HiLo", "1. You have to guess if the next card pulled will be higher, lower or the same card value than the current card. \n"
             + "2. Ace is the lowest card \n"
@@ -14,7 +16,7 @@ public class HomeScreen implements ChooseGame{
 
     @Override
     public void printGames() {
-        System.out.println("Choose a game to play!");
+        chooseGamePrompt();
         System.out.println("1) HiLo");
         System.out.println("2) Blackjack");
         System.out.println("3) Exit");
@@ -22,7 +24,9 @@ public class HomeScreen implements ChooseGame{
 
     @Override
     public Game chooseGame() {
-        String input = InputScanner.useScanner().nextLine();
+        chooseActionPrompt();
+        String input;
+        input = InputScanner.useScanner().nextLine();
         if (input.equalsIgnoreCase("1")){
             return hilo;
         } else if (input.equalsIgnoreCase("2")) {
@@ -30,8 +34,10 @@ public class HomeScreen implements ChooseGame{
         } else if (input.equalsIgnoreCase("3")) {
             System.out.println("Bye!");
             System.exit(0);
+        } else {
+            errorHandling();
         }
-        return null;
+        return chooseGame();
     }
 
     public boolean backToHomeScreen() {

@@ -23,10 +23,6 @@ public enum CardValuesInt {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
-    }
-
     public String getRank() {
         return rank;
     }
