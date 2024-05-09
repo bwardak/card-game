@@ -38,7 +38,7 @@ public class HiLo extends Game {
                 int nextCardValue = getCardValue(nextCardString);
 
                 gameContinue = false;
-                if (userGuess.contains("H")) {
+                if (userGuess.equalsIgnoreCase("H")) {
                     if (nextCardValue == currentCardValue) {
                         System.out.println("You lose, they were the same. Too bad");
                         System.out.println();
@@ -53,7 +53,7 @@ public class HiLo extends Game {
                         System.out.println();
                     }
                 }
-                if (userGuess.contains("L")) {
+                if (userGuess.equalsIgnoreCase("L")) {
                     if (nextCardValue == currentCardValue) {
                         System.out.println("You lose, they were the same. Too bad");
                         System.out.println();
@@ -68,7 +68,7 @@ public class HiLo extends Game {
                         System.out.println();
                     }
                 }
-                if (userGuess.contains("S")) {
+                if (userGuess.equalsIgnoreCase("S")) {
                     if (nextCardValue == currentCardValue) {
                         System.out.println("Well done! They are the same value.");
                         gameContinue = true;
@@ -83,6 +83,10 @@ public class HiLo extends Game {
                         System.out.println();
                     }
                 }
+                if(!userGuess.equalsIgnoreCase("H")|| !userGuess.equalsIgnoreCase("S") || !userGuess.equalsIgnoreCase("L")){
+                    System.out.println("Invalid Input");
+                    gameContinue = true;
+                }
             } while (gameContinue);
             playAgain();
         }
@@ -92,6 +96,7 @@ public class HiLo extends Game {
         System.out.println("Play again? (y/n)");
         String input = userInput.useScanner().nextLine().toUpperCase();
         if(input.equals("Y")){
+            deck.resetDeck();
             play();
         } else if (input.equals("N")){
             System.out.println("Thanks for playing");
@@ -114,7 +119,11 @@ public class HiLo extends Game {
 
         }
     }
+ public static void main(String[] args){
+        HiLo game = new HiLo("fd", "dsd00");
+            game.play();
 
+ }
 };
 
 
