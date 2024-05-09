@@ -33,47 +33,13 @@ public class HiLo extends Game {
             boolean gameContinue;
             do {
                 String currentCardString = deck.dealCard();
-                int currentCardValue;
-                switch (currentCardString.substring(0, currentCardString.length() - 1)) {
-                    case "A":
-                        currentCardValue = 1;
-                        break;
-                    case "J":
-                        currentCardValue = 11;
-                        break;
-                    case "Q":
-                        currentCardValue = 12;
-                        break;
-                    case "K":
-                        currentCardValue = 13;
-                        break;
-                    default:
-                        currentCardValue = Integer.parseInt(currentCardString.substring(0, currentCardString.length() - 1));
-                        break;
-                }
+                int currentCardValue = getCardValue(currentCardString);
 
                 System.out.println("The card is : " + currentCardString + ". Higher, lower or same?");
 
                 String userGuess = userInput.useScanner().nextLine().toUpperCase();
                 String nextCardString = deck.dealCard();
-                int nextCardValue;
-                switch (nextCardString.substring(0, nextCardString.length() - 1)) {
-                    case "A":
-                        nextCardValue = 1;
-                        break;
-                    case "J":
-                        nextCardValue = 11;
-                        break;
-                    case "Q":
-                        nextCardValue = 12;
-                        break;
-                    case "K":
-                        nextCardValue = 13;
-                        break;
-                    default:
-                        nextCardValue = Integer.parseInt(nextCardString.substring(0, nextCardString.length() - 1));
-                        break;
-                }
+                int nextCardValue = getCardValue(nextCardString);
 
                 gameContinue = false;
                 if (userGuess.contains("H")) {
@@ -135,6 +101,22 @@ public class HiLo extends Game {
             System.out.println("Thanks for playing");
         }
         return true;
+    }
+
+    private int getCardValue(String CardString){
+        switch (CardString.substring(0, CardString.length() - 1)) {
+            case "A":
+                return  1;
+            case "J":
+                return 11;
+            case "Q":
+                return 12;
+            case "K":
+                return 13;
+            default:
+                return Integer.parseInt(CardString.substring(0, CardString.length() - 1));
+
+        }
     }
 
 };
